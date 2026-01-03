@@ -1,0 +1,5 @@
+{
+  "watch": ["server.js", "views", "public"],
+  "ext": "js,json,ejs,css",
+  "delay": "200ms"
+}

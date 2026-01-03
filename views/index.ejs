@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('includes/head', { appName }) %>
+  <body class="bg-anim">
+    <main id="screen-home" class="screen">
+      <h1 class="title"><%= appName %></h1>
+      <div class="card">
+        <label for="nameInput" class="label">YOUR NAME</label>
+        <input id="nameInput" class="input" type="text" maxlength="20" placeholder="ENTER NAME" autocomplete="off" />
+
+        <button id="createBtn" class="btn btn-primary">Create Room</button>
+
+        <div class="divider">OR</div>
+
+        <label for="codeInput" class="label">ROOM CODE</label>
+        <input id="codeInput" class="input code" type="text" maxlength="4" placeholder="ABCD" autocomplete="off" />
+        <button id="joinBtn" class="btn btn-secondary">Join</button>
+
+        <p id="error" class="error" aria-live="polite"></p>
+      </div>
+    </main>
+
+    <main id="screen-lobby" class="screen hidden">
+      <h1 class="title"><%= appName %> Lobby</h1>
+      <div class="card">
+        <div class="row">
+          <div class="col">
+            <div class="label">Room Code</div>
+            <div id="roomCode" class="badge"></div>
+          </div>
+          <div class="col right">
+            <div class="label">You</div>
+            <div id="youName" class="badge"></div>
+          </div>
+        </div>
+
+        <div class="players">
+          <div class="label">Players</div>
+          <ul id="playersList" class="list"></ul>
+          <div class="hint">Max 20 players. At least 3 to start.</div>
+        </div>
+
+        <div class="controls">
+          <button id="startBtn" class="btn btn-primary" disabled>Start Game</button>
+          <button id="cancelBtn" class="btn btn-warning hidden">Cancel Start</button>
+          <div id="countdown" class="countdown hidden">3</div>
+        </div>
+      </div>
+    </main>
+
+    <main id="screen-game" class="screen hidden">
+      <h1 class="title">Imposter</h1>
+      <div id="gameRoomCode" class="badge room-code-top"></div>
+      <div class="card">
+        <div id="gameMessage" class="hint"></div>
+        <div id="phaseTimer" class="badge hidden"></div>
+
+        <div id="choosePhase" class="phase hidden">
+          <div id="subjects" class="list"></div>
+        </div>
+
+        <div id="talkPhase" class="phase hidden">
+          <div id="promptBox" class="badge"></div>
+          <div id="yourTurnBox" class="hint"></div>
+          <button id="doneTalkBtn" class="btn btn-secondary hidden">DONE</button>
+        </div>
+
+        <div id="votePhase" class="phase hidden">
+          <button id="goAgainBtn" class="btn btn-secondary">Go around again</button>
+          <div class="label">Vote for the imposter</div>
+          <div id="candidates" class="list"></div>
+          <div id="voteNote" class="hint"></div>
+        </div>
+
+        <div id="scorePhase" class="phase hidden">
+          <div id="reveal" class="badge"></div>
+          <div id="scoreStream" class="list"></div>
+          <div id="scoreBoard" class="list"></div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Connection/Closure Modal -->
+    <div id="connModal" class="modal hidden">
+      <div class="modal-backdrop"></div>
+      <div class="modal-card">
+        <h2 class="title">Connection Issue</h2>
+        <p id="connModalMsg" class="hint"></p>
+        <button id="connModalBtn" class="btn btn-secondary">Return to Menu</button>
+      </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/main.js"></script>
+  </body>
+</html>
