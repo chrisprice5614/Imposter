@@ -197,15 +197,18 @@
         phaseTimerEl.textContent = '';
       }
     }
-    if (youName === chooser) {
-      subjects.forEach(s => {
-        const btn = document.createElement('button');
-        btn.className = 'btn btn-secondary';
-        btn.textContent = s;
+    // Render subjects for everyone; only chooser can click
+    subjects.forEach(s => {
+      const btn = document.createElement('button');
+      btn.className = 'btn btn-secondary';
+      btn.textContent = s;
+      if (youName === chooser) {
         btn.addEventListener('click', () => socket.emit('chooseSubject', s));
-        subjectsEl.appendChild(btn);
-      });
-    }
+      } else {
+        btn.disabled = true;
+      }
+      subjectsEl.appendChild(btn);
+    });
     if (gameRoomCodeEl) gameRoomCodeEl.textContent = currentRoomCode || '';
   });
 
@@ -217,7 +220,8 @@
     showPhase('talk');
     gameMessage.textContent = '';
     promptBox.textContent = prompt ? `Prompt: ${prompt}` : 'You are the imposter, blend in.';
-    yourTurnBox.textContent = message;
+    // Clear, centered instruction for the player
+    yourTurnBox.textContent = 'Say something related to the prompt';
     doneTalkBtn.classList.remove('hidden');
     if (phaseTimerEl) phaseTimerEl.classList.remove('hidden');
     if (gameRoomCodeEl) gameRoomCodeEl.textContent = currentRoomCode || '';
@@ -234,6 +238,26 @@
     yourTurnBox.textContent = '';
     doneTalkBtn.classList.add('hidden');
     if (phaseTimerEl) {
+      phaseTimerEl.classList.add('hidden');
+      phaseTimerEl.textContent = '';
+    }
+    if (gameRoomCodeEl) gameRoomCodeEl.textContent = currentRoomCode || '';
+  });
+
+  // Pre-talk reveal: show subject and prompt to everyone; imposter sees only subject with guidance
+  socket.on('phasePreTalk', ({ subject, prompt, message }) => {
+    showPhase('talk');
+    gameMessage.textContent = '';
+    const subjectLine = subject ? `Subject: ${subject}` : '';
+    if (prompt) {
+      promptBox.textContent = `${subjectLine}\nPrompt: ${prompt}`;
+    } else {
+      promptBox.textContent = `${subjectLine}\nBlend in, you're the imposter`;
+    }
+    yourTurnBox.textContent = message || '';
+    doneTalkBtn.classList.add('hidden');
+    if (phaseTimerEl) {
+      // Keep timer hidden during pre-talk reveal
       phaseTimerEl.classList.add('hidden');
       phaseTimerEl.textContent = '';
     }

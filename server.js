@@ -382,6 +382,17 @@ function sendPhaseStateToPlayer(room, player) {
     sendTimer();
     return;
   }
+  if (g.phase === 'pretalk') {
+    const isImposter = (player.name === g.imposterName);
+    const message = isImposter ? "Blend in, you're the imposter" : 'Get ready to talk';
+    io.to(player.id).emit('phasePreTalk', {
+      subject: g.subject,
+      prompt: isImposter ? null : g.prompt,
+      message
+    });
+    sendTimer();
+    return;
+  }
   if (g.phase === 'talk') {
     const speakerName = g.talkOrder[g.talkIndex];
     if (player.name === speakerName) {
@@ -463,9 +474,16 @@ function setSubjectAndPrompt(room, subject) {
   g.talkStartIndex = 0;
   g.talkStartName = rotated[0];
   g.talkIndex = 0;
-  g.phase = 'talk';
+  g.phase = 'pretalk';
   io.to(room.code).emit('phaseChosen', { subject, promptChooser: g.chooserName });
-  emitTalkState(room);
+  emitPreTalkState(room);
+  // 4-second reveal before talk begins
+  startPhaseTimer(room, 4, () => {
+    if (g.phase === 'pretalk') {
+      g.phase = 'talk';
+      emitTalkState(room);
+    }
+  });
 }
 
 function emitTalkState(room) {
@@ -488,6 +506,19 @@ function emitTalkState(room) {
         youAreImposter: (p.name === g.imposterName)
       });
     }
+  });
+}
+
+function emitPreTalkState(room) {
+  const g = room.game;
+  room.players.forEach(p => {
+    const isImposter = (p.name === g.imposterName);
+    const message = isImposter ? "Blend in, you're the imposter" : 'Get ready to talk';
+    io.to(p.id).emit('phasePreTalk', {
+      subject: g.subject,
+      prompt: isImposter ? null : g.prompt,
+      message
+    });
   });
 }
 

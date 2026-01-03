@@ -24,19 +24,20 @@ html, body {
   inset: 0;
   z-index: 0;
   background:
-    radial-gradient(1400px 900px at 15% 25%, rgba(140, 0, 255, 0.12), transparent 60%),
-    radial-gradient(1200px 800px at 80% 30%, rgba(60, 240, 180, 0.14), transparent 65%),
-    radial-gradient(1100px 700px at 50% 70%, rgba(90, 0, 200, 0.10), transparent 70%),
-    radial-gradient(1000px 900px at 30% 80%, rgba(0, 180, 90, 0.10), transparent 70%);
-  animation: lavaFlow 12s ease-in-out infinite alternate;
-  filter: blur(18px);
+    radial-gradient(1600px 1000px at 20% 25%, rgba(140, 0, 255, 0.55), transparent 60%),
+    radial-gradient(1400px 900px at 80% 30%, rgba(0, 200, 140, 0.52), transparent 65%),
+    radial-gradient(1200px 800px at 50% 75%, rgba(0, 120, 255, 0.50), transparent 70%),
+    radial-gradient(1100px 900px at 30% 80%, rgba(0, 255, 170, 0.48), transparent 70%);
+  animation: lavaFlow 12.8s ease-in-out infinite alternate;
+  filter: blur(24px) saturate(140%) contrast(115%);
+  will-change: transform;
   pointer-events: none;
 }
 @keyframes lavaFlow {
   0% { transform: translate3d(0,0,0) scale(1) rotate(0deg); }
-  25% { transform: translate3d(-3%, 2%, 0) scale(1.06) rotate(1deg); }
-  50% { transform: translate3d(3%, -2%, 0) scale(1.08) rotate(-1deg); }
-  75% { transform: translate3d(-2%, -3%, 0) scale(1.06) rotate(1deg); }
+  20% { transform: translate3d(-18%, 12%, 0) scale(1.26) rotate(6deg); }
+  50% { transform: translate3d(22%, -16%, 0) scale(1.32) rotate(-8deg); }
+  80% { transform: translate3d(-16%, -20%, 0) scale(1.28) rotate(6deg); }
   100% { transform: translate3d(0,0,0) scale(1) rotate(0deg); }
 }
 
@@ -47,18 +48,19 @@ html, body {
   inset: 0;
   z-index: 0;
   background:
-    radial-gradient(1500px 950px at 80% 20%, rgba(200, 80, 255, 0.10), transparent 60%),
-    radial-gradient(1200px 900px at 25% 75%, rgba(40, 230, 160, 0.12), transparent 65%),
-    radial-gradient(1000px 800px at 60% 40%, rgba(110, 0, 220, 0.09), transparent 70%);
-  animation: lavaFlow2 16s ease-in-out infinite;
-  filter: blur(20px);
-  opacity: 0.9;
+    radial-gradient(1700px 1050px at 75% 20%, rgba(200, 80, 255, 0.50), transparent 60%),
+    radial-gradient(1400px 1000px at 25% 75%, rgba(0, 230, 160, 0.48), transparent 65%),
+    radial-gradient(1200px 900px at 60% 40%, rgba(40, 120, 255, 0.46), transparent 70%);
+  animation: lavaFlow2 16.8s ease-in-out infinite alternate-reverse;
+  filter: blur(28px) saturate(150%) contrast(120%);
+  opacity: 1;
+  will-change: transform;
   pointer-events: none;
 }
 @keyframes lavaFlow2 {
   0% { transform: translate3d(0,0,0) scale(1) rotate(0deg); }
-  33% { transform: translate3d(2%, -3%, 0) scale(1.07) rotate(-1.5deg); }
-  66% { transform: translate3d(-3%, 2%, 0) scale(1.09) rotate(1.5deg); }
+  33% { transform: translate3d(20%, -18%, 0) scale(1.34) rotate(-9deg); }
+  66% { transform: translate3d(-22%, 16%, 0) scale(1.36) rotate(9deg); }
   100% { transform: translate3d(0,0,0) scale(1) rotate(0deg); }
 }
 .main, .screen {
@@ -146,7 +148,9 @@ html, body {
   top: 8px;
   right: 12px;
 }
-#promptBox { text-align: center; }
+#promptBox { text-align: center; display: block; margin: 0 auto; white-space: pre-line; }
+/* Hide timer badge unless it has text */
+#phaseTimer:empty { display: none; }
 .list {
   list-style: none;
   padding: 0;
@@ -170,6 +174,15 @@ html, body {
   font-size: 12px;
   color: var(--muted);
   margin-top: 6px;
+}
+#yourTurnBox {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--accent2);
+  letter-spacing: 0.5px;
+  -webkit-text-stroke: 1px rgba(0,0,0,0.25);
+  text-shadow: 0 1px 0 rgba(255,255,255,0.4), 0 2px 6px rgba(0,0,0,0.15);
 }
 .controls { margin-top: 16px; }
 .countdown {

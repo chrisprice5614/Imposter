@@ -86,5 +86,19 @@
     "Learning to drive","Buying a house","Starting a business","Getting promoted","Losing a job","Changing careers","Retirement","Volunteering","Charity","Community service",
     "Learning an instrument","Learning a language","Cooking","Baking","Painting","Photography","Writing","Blogging","Streaming","Gaming",
     "Meeting a celebrity","Concert","Festival","Theme park","Zoo","Museum","Aquarium","Beach day","Snow day","Rainy day"
+  ],
+  "Gaming": [
+    "Minecraft","Fortnite","Grand Theft Auto V","Call of Duty","League of Legends","Valorant","Counter-Strike","Roblox","Among Us","Animal Crossing",
+    "The Legend of Zelda","Super Mario","Pokémon","Elden Ring","The Witcher 3","Skyrim","Red Dead Redemption 2","God of War","Halo","Overwatch",
+    "Apex Legends","PUBG","Rocket League","FIFA","NBA 2K","Madden NFL","Super Smash Bros.","Tetris","Pac-Man","Sonic the Hedgehog",
+    "Assassin's Creed","Cyberpunk 2077","Starfield","Hogwarts Legacy","Genshin Impact","Clash of Clans","Candy Crush","Temple Run","Subway Surfers","Plants vs. Zombies",
+    "The Last of Us","Uncharted","Metroid","Kirby","Donkey Kong","Street Fighter","Mortal Kombat","Tekken","Need for Speed","Gran Turismo"
+  ],
+  "Apps/Platforms": [
+    "YouTube","Netflix","Spotify","TikTok","Instagram","Facebook","Twitter/X","Snapchat","WhatsApp","Discord",
+    "Reddit","Twitch","Amazon","Google","Apple","Microsoft","Gmail","Chrome","Windows","macOS",
+    "iPhone","Android","Samsung Galaxy","PlayStation","Xbox","Nintendo Switch","Uber","Airbnb","DoorDash","Lyft",
+    "Tesla","SpaceX","OpenAI","ChatGPT","Siri","Alexa","Google Maps","Google Drive","iCloud","Dropbox",
+    "Zoom","Microsoft Teams","Slack","Notion","Figma","Canva","Pinterest","LinkedIn","Hulu","Disney+"
   ]
 }
