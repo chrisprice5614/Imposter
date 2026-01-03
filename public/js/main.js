@@ -2,6 +2,29 @@
 (function () {
   const socket = io();
 
+  // Prevent pull-to-refresh on mobile while keeping normal scroll
+  (function disablePullToRefresh() {
+    let touchStartY = 0;
+    let maybePrevent = false;
+    window.addEventListener('touchstart', (e) => {
+      if (e.touches && e.touches.length === 1) {
+        touchStartY = e.touches[0].clientY;
+        // Only consider preventing if we are scrolled to the very top
+        maybePrevent = window.pageYOffset === 0;
+      }
+    }, { passive: false });
+    window.addEventListener('touchmove', (e) => {
+      if (!maybePrevent || !(e.touches && e.touches.length === 1)) return;
+      const touchY = e.touches[0].clientY;
+      const deltaY = touchY - touchStartY;
+      touchStartY = touchY;
+      // If pulling down from the top, prevent default to stop refresh
+      if (deltaY > 0) {
+        e.preventDefault();
+      }
+    }, { passive: false });
+  })();
+
   const screenHome = document.getElementById('screen-home');
   const screenLobby = document.getElementById('screen-lobby');
   const screenGame = document.getElementById('screen-game');

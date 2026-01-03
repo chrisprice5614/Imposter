@@ -17,6 +17,9 @@ html, body {
   color: var(--text);
   font-family: 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   position: relative;
+  /* Prevent pull-to-refresh / overscroll bounce */
+  overscroll-behavior-y: none;
+  overscroll-behavior: none;
 }
 .bg-anim::before {
   content: "";
